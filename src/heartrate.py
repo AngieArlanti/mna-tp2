@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 
-from src import comparationMethods
-from math import pow, floor,log2
+import comparationMethods
+from math import pow, floor, log2
 
 #cap = cv2.VideoCapture('../res/videos/71.mp4')
 #cap = cv2.VideoCapture('../res/videos/2017-09-14 21.53.59.mp4')

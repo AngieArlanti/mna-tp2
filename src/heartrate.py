@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import cv2
 
 from src import comparationMethods
+from math import pow, floor,log2
 
 cap = cv2.VideoCapture('../res/videos/2017-09-14 21.53.59.mp4')
 #cap = cv2.VideoCapture('../res/videos/alonso.MOV')
@@ -32,7 +33,7 @@ while (cap.isOpened()):
 cap.release()
 cv2.destroyAllWindows()
 
-n = 1024
+n = pow(2,floor(log2(length)))
 #Estudiar bien como se justifica ésto. Se calculaba así en la teoria.
 f = np.linspace(-n / 2, n / 2 - 1, n) * fps / n
 

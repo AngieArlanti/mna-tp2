@@ -55,18 +55,18 @@ def transform():
     print("Tiempo de corrida np.fft: {}".format(end - sta))
     f = np.linspace(-n / 2, n / 2 - 1, n) * fps / n
 
-    plt.figure()
-    plt.plot(60 * f, R, "r")
-    plt.xlim(0, 200)
-
-    plt.plot(60 * f, G, "g")
-    plt.xlim(0, 200)
-
-    plt.plot(60 * f, B, "b")
-    plt.xlim(0, 200)
-
-    plt.xlabel("frecuencia 2 [1/minuto]")
-
-    plt.show()
+    # plt.figure()
+    # plt.plot(60 * f, R, "r")
+    # plt.xlim(0, 200)
+    #
+    # plt.plot(60 * f, G, "g")
+    # plt.xlim(0, 200)
+    #
+    # plt.plot(60 * f, B, "b")
+    # plt.xlim(0, 200)
+    #
+    # plt.xlabel("frecuencia 2 [1/minuto]")
+    #
+    # plt.show()
     print("Frecuencia cardíaca: ", abs(f[np.argmax(G)]) * 60, " pulsaciones por minuto")
     return abs(f[np.argmax(G)]) * 60

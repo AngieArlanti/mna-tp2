@@ -1,8 +1,6 @@
 import numpy as np
 import math
 
-
-
 def dft(x):
     """ simple fourier transform -> naive evaluation [O(N^2)] """
     N = len(x)

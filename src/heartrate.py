@@ -5,13 +5,18 @@ import cv2
 from src import comparationMethods
 from math import pow, floor,log2
 
-cap = cv2.VideoCapture('../res/videos/71.mp4')
-#cap = cv2.VideoCapture('../res/videos/alonso.MOV')
+#cap = cv2.VideoCapture('../res/videos/71.mp4')
+#cap = cv2.VideoCapture('../res/videos/2017-09-14 21.53.59.mp4')
+# cap = cv2.VideoCapture('../res/videos/alonso.MOV')
+cap = cv2.VideoCapture('../res/videos/arlanti.mp4')
 
 length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 fps = cap.get(cv2.CAP_PROP_FPS)
+centerWidth = int(width/2); #640
+centerHeight = int(height/2); #360
+#1080 × 1920
 
 r = np.zeros((1, length))
 g = np.zeros((1, length))
@@ -22,9 +27,9 @@ while (cap.isOpened()):
     ret, frame = cap.read()
 
     if ret == True:
-        r[0, k] = np.mean(frame[330:360, 610:640, 0])
-        g[0, k] = np.mean(frame[330:360, 610:640, 1])
-        b[0, k] = np.mean(frame[330:360, 610:640, 2])
+        r[0, k] = np.mean(frame[centerHeight-30:centerHeight, centerWidth-30:centerWidth, 0])
+        g[0, k] = np.mean(frame[centerHeight-30:centerHeight, centerWidth-30:centerWidth, 1])
+        b[0, k] = np.mean(frame[centerHeight-30:centerHeight, centerWidth-30:centerWidth, 2])
     # print(k)
     else:
         break
@@ -53,16 +58,16 @@ B = np.abs(np.fft.fftshift(np.fft.fft(b))) ** 2
 # plt.xlabel("frecuencia [1/minuto]")
 # plt.savefig("plots/fG.png")
 
-plt.plot(60 * f, B)
-plt.xlim(0, 200)
-plt.savefig("../out/fB.png")
+#plt.plot(60 * f, B)
+#plt.xlim(0, 200)
+#plt.savefig("../out/fB.png")
 
 frecR = abs(f[np.argmax(R)]) * 60
 frecB = abs(f[np.argmax(B)]) * 60
 frecG = abs(f[np.argmax(G)]) * 60
 
-x = np.array([frecR,frecR,frecG, frecG, frecB,frecB])
-y = x#np.array([frecG,frecB, frecB, frecR,frecR,frecG])
+x = np.array([frecR, frecR, frecG, frecG, frecB, frecB])
+y = x  # np.array([frecG,frecB, frecB, frecR,frecR,frecG])
 
 comparationMethods.get_coefficient_of_determination(x, y)
 

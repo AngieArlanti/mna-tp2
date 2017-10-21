@@ -1,7 +1,17 @@
 import cv2
 import numpy as np
-from src.heartrate_fft import Location
 from math import pow, floor,log2
+from enum import Enum
+class Location(Enum):
+     CENTER = 1
+     LEFT = 2
+     RIGHT = 3
+     UPPER_CENTER = 4
+     UPPER_LEFT = 5
+     UPPER_RIGHT = 6
+     LOWER_CENTER = 7
+     LOWER_LEFT = 8
+     LOWER_RIGHT = 9
 
 def processVideoAndReturnNormalizedRGBVectors(videoName,location,squareSize):
     cap = cv2.VideoCapture('../res/videos/'+videoName)
@@ -78,15 +88,15 @@ def calculateSquareBounds(Location,width,height,squareSize):
 
 #[r,g,b,f]=processVideo('71.mp4',Location.CENTER,30);
 #print(r)
-
-print('----------------------------------------------------------------------------------------------')
-print(calculateSquareBounds(Location.CENTER,720,1280,30))
-print(calculateSquareBounds(Location.LEFT,720,1280,30))
-print(calculateSquareBounds(Location.RIGHT,720,1280,30))
-print(calculateSquareBounds(Location.UPPER_CENTER,720,1280,30))
-print(calculateSquareBounds(Location.UPPER_LEFT,720,1280,30))
-print(calculateSquareBounds(Location.UPPER_RIGHT,720,1280,30))
-print(calculateSquareBounds(Location.LOWER_CENTER,720,1280,30))
-print(calculateSquareBounds(Location.LOWER_LEFT,720,1280,30))
-print(calculateSquareBounds(Location.LOWER_RIGHT,720,1280,30))
+def testCalculateSquareBounds():
+    print('----------------------------------------------------------------------------------------------')
+    print(calculateSquareBounds(Location.CENTER, 720, 1280, 30))
+    print(calculateSquareBounds(Location.LEFT,720,1280,30))
+    print(calculateSquareBounds(Location.RIGHT,720,1280,30))
+    print(calculateSquareBounds(Location.UPPER_CENTER,720,1280,30))
+    print(calculateSquareBounds(Location.UPPER_LEFT,720,1280,30))
+    print(calculateSquareBounds(Location.UPPER_RIGHT,720,1280,30))
+    print(calculateSquareBounds(Location.LOWER_CENTER,720,1280,30))
+    print(calculateSquareBounds(Location.LOWER_LEFT,720,1280,30))
+    print(calculateSquareBounds(Location.LOWER_RIGHT,720,1280,30))
 

@@ -5,6 +5,7 @@ import cv2
 from src import comparationMethods
 
 cap = cv2.VideoCapture('../res/videos/2017-09-14 21.53.59.mp4')
+#cap = cv2.VideoCapture('../res/videos/alonso.MOV')
 
 length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -60,7 +61,7 @@ frecB = abs(f[np.argmax(B)]) * 60
 frecG = abs(f[np.argmax(G)]) * 60
 
 x = np.array([frecR,frecR,frecG, frecG, frecB,frecB])
-y = np.array([frecG,frecB, frecB, frecR,frecR,frecG])
+y = x#np.array([frecG,frecB, frecB, frecR,frecR,frecG])
 
 comparationMethods.get_coefficient_of_determination(x, y)
 

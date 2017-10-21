@@ -1,4 +1,6 @@
 from scipy.stats import pearsonr as r2
+import matplotlib.pyplot as plt
+import numpy as np
 
 def get_coefficient_of_determination(x,y):
 
@@ -10,3 +12,17 @@ def get_coefficient_of_determination(x,y):
     print("Coeficiente de pearson: ", coefficient_of_dermination[0])
 
 
+def blandAltman(x,y):
+    mean = np.mean([x, y], axis=0)
+    diff = x - y  # Difference between x and y
+    md = np.mean(diff)  # Mean of the difference
+    sd = np.std(diff, axis=0)  # Standard deviation of the difference
+
+    plt.title("Bland Altman plot")
+    plt.scatter(x,y)
+
+    plt.axhline(md, color='gray', linestyle='--')
+    plt.axhline(md + 1.96 * sd, color='gray', linestyle='--')
+    plt.axhline(md - 1.96 * sd, color='gray', linestyle='--')
+
+    plt.show()

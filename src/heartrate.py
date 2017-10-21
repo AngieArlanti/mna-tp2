@@ -1,19 +1,10 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Sep 16 19:23:10 2017
-
-@author: pfierens
-"""
-
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 
-cap = cv2.VideoCapture('../res/videos/2017-09-14 21.53.59.mp4')
+from src import comparationMethods
 
-# if not cap.isOpened():
-#    print("No lo pude abrir")
-#    return
+cap = cv2.VideoCapture('../res/videos/2017-09-14 21.53.59.mp4')
 
 length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -62,6 +53,17 @@ B = np.abs(np.fft.fftshift(np.fft.fft(b))) ** 2
 
 plt.plot(60 * f, B)
 plt.xlim(0, 200)
-plt.savefig("plots/fB.png")
+plt.savefig("../out/fB.png")
 
-print("Frecuencia cardíaca: ", abs(f[np.argmax(G)]) * 60, " pulsaciones por minuto")
+frecR = abs(f[np.argmax(R)]) * 60
+frecB = abs(f[np.argmax(B)]) * 60
+frecG = abs(f[np.argmax(G)]) * 60
+
+x = np.array([frecR,frecR,frecG, frecG, frecB,frecB])
+y = np.array([frecG,frecB, frecB, frecR,frecR,frecG])
+
+comparationMethods.get_coefficient_of_determination(x, y)
+
+print("Frecuencia cardíaca R: ", frecR, " pulsaciones por minuto")
+print("Frecuencia cardíaca G: ", frecG, " pulsaciones por minuto")
+print("Frecuencia cardíaca B: ", frecB, " pulsaciones por minuto")

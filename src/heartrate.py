@@ -5,7 +5,7 @@ import cv2
 from src import comparationMethods
 from math import pow, floor,log2
 
-cap = cv2.VideoCapture('../res/videos/2017-09-14 21.53.59.mp4')
+cap = cv2.VideoCapture('../res/videos/71.mp4')
 #cap = cv2.VideoCapture('../res/videos/alonso.MOV')
 
 length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -33,7 +33,7 @@ while (cap.isOpened()):
 cap.release()
 cv2.destroyAllWindows()
 
-n = pow(2,floor(log2(length)))
+n = int(pow(2,floor(log2(length))))
 #Estudiar bien como se justifica ésto. Se calculaba así en la teoria.
 f = np.linspace(-n / 2, n / 2 - 1, n) * fps / n
 

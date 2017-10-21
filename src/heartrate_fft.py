@@ -10,8 +10,9 @@ import matplotlib.pyplot as plt
 import cv2
 import time
 import fft
+from math import pow, floor,log2
 
-cap = cv2.VideoCapture('../res/videos/2017-09-14 21.53.59.mp4')
+cap = cv2.VideoCapture('../res/videos/71.mp4')
 
 # if not cap.isOpened():
 #    print("No lo pude abrir")
@@ -42,7 +43,7 @@ while cap.isOpened():
 cap.release()
 cv2.destroyAllWindows()
 
-n = 1024
+n = int(pow(2,floor(log2(length))))
 
 
 

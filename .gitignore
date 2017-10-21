@@ -1,3 +1,15 @@
 # IDEA
 .idea/
 __pycache__/
+target/
+.classpath
+.project
+.settings
+.idea
+*.iml
+bin/
+*.DS_Store
+config.propierties
+.metadata/
+.metadata
+metadata/

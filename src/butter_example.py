@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from passband_filter import PBFilter
+
+from src.passband_filter import PBFilter
 
 if __name__ == "__main__":
     import numpy as np
     import matplotlib.pyplot as plt
-    from fft import fft
+    from src.fft import fft
     import cv2
 
     # cap = cv2.VideoCapture('../res/videos/2017-09-14 21.53.59.mp4')
@@ -62,19 +63,7 @@ if __name__ == "__main__":
 
     b_butter = PBFilter().filter(b, fps)
 
-    # Cut the initial stabilization time (1 second). Nuestro pico cerca de 0.
-    # ver http://www.ignaciomellado.es/blog/Measuring-heart-rate-with-a-smartphone-camera
-    cut_frame_index = np.floor(fps * 1 + 1).astype(int)
-
-    b_stable = np.array(b_butter[cut_frame_index: n])
-
-    zeros = np.zeros(31)
-
-    b_stable = np.append(zeros, b_stable)
-
-    print(b_stable)
-
-    B_butter = np.abs(np.fft.fftshift(fft.fft_opt(b_stable, len(b_stable), 1, 0))) ** 2
+    B_butter = np.abs(np.fft.fftshift(fft.fft_opt(b_butter, len(b_butter), 1, 0))) ** 2
 
     plt.plot(60 * f, B_butter, label='Filtered signal (%g Hz)')
     plt.xlim(0, 250)

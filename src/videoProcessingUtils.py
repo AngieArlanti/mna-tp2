@@ -13,19 +13,34 @@ class Location(Enum):
      LOWER_LEFT = 8
      LOWER_RIGHT = 9
 
-def processVideoAndReturnNormalizedRGBVectors(videoName,location,squareSize):
+def processVideoAndReturnNormalizedRGBVectors(videoName,location,squareSize,timeLimit):
     cap = cv2.VideoCapture('../res/videos/'+videoName)
+
+    print(videoName)
+    print(location)
+    print(squareSize)
+    print(timeLimit)
 
     length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     fps = cap.get(cv2.CAP_PROP_FPS)
-    n = int(pow(2, floor(log2(length))))
 
-    [r,g,b] = calculateRGBMean(cap,location,length,squareSize)
+    frameLimit = (int)(timeLimit*fps)
+    n = int(pow(2, floor(log2(frameLimit))))
 
-    r = r[0, 0:n] - np.mean(r[0, 0:n])
-    g = g[0, 0:n] - np.mean(g[0, 0:n])
-    b = b[0, 0:n] - np.mean(b[0, 0:n])
+    print(n)
+    print(frameLimit)
+    print(fps)
+    print(length)
 
+    [r,g,b] = calculateRGBMean(cap,location,squareSize,frameLimit)
+
+    r = r[0, 0:frameLimit] - np.mean(r[0, 0:frameLimit])
+    g = g[0, 0:frameLimit] - np.mean(g[0, 0:frameLimit])
+    b = b[0, 0:frameLimit] - np.mean(b[0, 0:frameLimit])
+    print('Delimiter')
+    print(len(r))
+    print(len(g))
+    print(len(b))
     # Estudiar bien como se justifica ésto. Se calculaba así en la teoria.
     f = np.linspace(-n / 2, n / 2 - 1, n) * fps / n
 
@@ -34,7 +49,7 @@ def processVideoAndReturnNormalizedRGBVectors(videoName,location,squareSize):
 
     #Given a vector of frames it returns a vector for r, g and b bands with the mean calculated
     #in a square of squareSize located in location
-def calculateRGBMean(cap,location,length,squareSize):
+def calculateRGBMean(cap,location,squareSize,frameLimit):
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
@@ -42,14 +57,14 @@ def calculateRGBMean(cap,location,length,squareSize):
     if squareSize>max(width,height):
         squareSize = 30
 
-    r = np.zeros((1, length))
-    g = np.zeros((1, length))
-    b = np.zeros((1, length))
+    r = np.zeros((1, frameLimit))
+    g = np.zeros((1, frameLimit))
+    b = np.zeros((1, frameLimit))
     k = 0
 
     [leftBound,rightBound,upperBound,lowerBound]=calculateSquareBounds(location,width,height,squareSize)
 
-    while (cap.isOpened()):
+    while (cap.isOpened() and k<frameLimit):
         ret, frame = cap.read()
 
         if ret == True:

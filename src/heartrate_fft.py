@@ -8,7 +8,7 @@ Created on Sat Sep 16 19:23:10 2017
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-from src import videoProcessingUtils as vpu
+from src import video_processing_utils as vpu
 from src.fft import fft
 
 #Process video, get frames and RGB channels analize an area of squareSize and then substract the mean

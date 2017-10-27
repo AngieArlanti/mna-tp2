@@ -41,7 +41,7 @@ if __name__ == "__main__":
 
     f = np.linspace(-n / 2, n / 2 - 1, n) * fps / n
 
-    # Normalize
+    # Normalizar
     r = r[0, 0:n] - np.mean(r[0, 0:n])
     g = g[0, 0:n] - np.mean(g[0, 0:n])
     b = b[0, 0:n] - np.mean(b[0, 0:n])
@@ -50,22 +50,22 @@ if __name__ == "__main__":
     G = np.abs(np.fft.fftshift(fft.fft_opt(g, len(g), 1, 0))) ** 2
     B = np.abs(np.fft.fftshift(fft.fft_opt(b, len(b), 1, 0))) ** 2
 
-    # plt.plot(60 * f, B)
-    # plt.xlim(0, 200)
-    # plt.savefig("../out/fB.png")
-
-    # Filter a noisy signal.
-
     plt.figure(2)
     plt.clf()
-    plt.plot(60 * f, B, label='Noisy signal')
+    plt.plot(60 * f, B)
     plt.xlim(0, 250)
 
     b_butter = PBFilter().filter(b, fps)
 
     B_butter = np.abs(np.fft.fftshift(fft.fft_opt(b_butter, len(b_butter), 1, 0))) ** 2
 
-    plt.plot(60 * f, B_butter, label='Filtered signal (%g Hz)')
-    plt.xlim(0, 250)
+    plt.plot(60 * f, B_butter)
+
+    plt.xlabel("frecuencia [1/minuto]")
+    plt.grid(True)
+    plt.legend(['ruidosa', 'filtrada'])
+    plt.title("Señal ruidosa vs señal filtrada con Butterworth pasa banda de orden 2 entre 50 y 130")
+
+    plt.savefig("../out/butter_example_alonso.png")
 
     plt.show()

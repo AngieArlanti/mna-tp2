@@ -2,6 +2,10 @@ import cv2
 import numpy as np
 from math import pow, floor,log2
 from enum import Enum
+
+from src.passband_filter import PBFilter
+
+
 class Location(Enum):
      CENTER = 1
      LEFT = 2
@@ -14,6 +18,7 @@ class Location(Enum):
      LOWER_RIGHT = 9
 
 def processVideoAndReturnNormalizedRGBVectors(videoName,location,squareSize,timeLimit):
+
     cap = cv2.VideoCapture('../res/videos/'+videoName)
 
     print(videoName)
@@ -41,10 +46,15 @@ def processVideoAndReturnNormalizedRGBVectors(videoName,location,squareSize,time
     print(len(r))
     print(len(g))
     print(len(b))
+
+    r_filtered = PBFilter().filter(r, fps)
+    g_filtered = PBFilter().filter(g, fps)
+    b_filtered = PBFilter().filter(b, fps)
+
     # Estudiar bien como se justifica ésto. Se calculaba así en la teoria.
     f = np.linspace(-n / 2, n / 2 - 1, n) * fps / n
 
-    return [r,g,b,f]
+    return [r_filtered,g_filtered,b_filtered,f]
 
 
     #Given a vector of frames it returns a vector for r, g and b bands with the mean calculated

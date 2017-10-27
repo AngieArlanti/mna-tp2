@@ -13,7 +13,7 @@ from src.fft import fft
 
 #Process video, get frames and RGB channels analize an area of squareSize and then substract the mean
 #Params: videoName under path /Videos, a Location Area to analize and a squareSize
-[r,g,b,f] = vpu.processVideoAndReturnNormalizedRGBVectors('2017-09-14 21.53.59.mp4',vpu.Location.CENTER,30)
+[r,g,b,f] = vpu.getFilteredRGBVectors('2017-09-14 21.53.59.mp4', vpu.Location.CENTER, 30)
 
 sta = time.perf_counter()
 R = np.abs(np.fft.fftshift(np.fft.fft(r))) ** 2

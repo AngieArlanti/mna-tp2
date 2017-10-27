@@ -38,7 +38,6 @@ def getFilteredRGBVectors(videoName, location, squareSize):
 
     return [r_filtered,g_filtered,b_filtered,f]
 
-
     #Given a vector of frames it returns a vector for r, g and b bands with the mean calculated
     #in a square of squareSize located in location
 def calculateRGBMean(cap,location,length,squareSize):

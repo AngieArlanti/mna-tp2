@@ -1,28 +1,22 @@
-import numpy as np
-
-from scipy.signal import butter, lfilter, filtfilt
+from scipy.signal import butter, lfilter
 
 
 class PBFilter:
 
     low = 50
     high = 130
+
     order = 2
+
     btype = 'band'
 
     def __init__(self):
         pass
 
-    def filter(self, channel, fps):
-        return self.butter_bandpass_filter(channel, fps)
+    @staticmethod
+    def filter(channel, fps):
+        butter_range = [(PBFilter.low / 60) / fps * 2, (PBFilter.high / 60) / fps * 2]
 
-    def butter_bandpass_filter(self, data, fps):
-        b, a = butter(PBFilter.order, self.bpm_range(fps), PBFilter.btype)
-        y = lfilter(b, a, data)
-        return y
+        b, a = butter(PBFilter.order, butter_range, PBFilter.btype)
 
-    def bpm_range(self, fps):
-        return [
-            (PBFilter.low / 60) / fps * 2,
-            (PBFilter.high / 60) / fps * 2,
-        ]
+        return lfilter(b, a, channel)

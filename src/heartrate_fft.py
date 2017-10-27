@@ -8,12 +8,14 @@ Created on Sat Sep 16 19:23:10 2017
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-from src import videoProcessingUtils as vpu
+from src import video_processing_utils as vpu
 from src.fft import fft
 
 #Process video, get frames and RGB channels analize an area of squareSize and then substract the mean
 #Params: videoName under path /Videos, a Location Area to analize and a squareSize
+
 [r,g,b,f] = vpu.getFilteredRGBVectors('fierens.mp4', vpu.Location.CENTER, 30,61)
+
 
 sta = time.perf_counter()
 R = np.abs(np.fft.fftshift(np.fft.fft(r))) ** 2
@@ -43,10 +45,10 @@ print("Tiempo de corrida np.fft: {}".format(end - sta))
 print("Tiempo de corrida dft: {}".format(end2 - sta2))
 print("Tiempo de corrida fft_iter_opt: {}".format(end3 - sta3))
 
+
 #print(np.fft.fft(r) ** 2)
 #print(fft.fft_opt(r, len(r), 1, 0) ** 2)
 #print(fft.fft_iter_opt(r) ** 2)
-
 
 plt.plot(60 * f, R, "r")
 plt.xlim(0, 200)

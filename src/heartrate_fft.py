@@ -43,10 +43,6 @@ print("Tiempo de corrida np.fft: {}".format(end - sta))
 print("Tiempo de corrida dft: {}".format(end2 - sta2))
 print("Tiempo de corrida fft_iter_opt: {}".format(end3 - sta3))
 
-print(np.fft.fft(r) ** 2)
-print(fft.fft_opt(r, len(r), 1, 0) ** 2)
-print(fft.fft_iter_opt(r) ** 2)
-
 
 plt.plot(60 * f, R, "r")
 plt.xlim(0, 200)

@@ -34,7 +34,6 @@ def getFilteredRGBVectors(videoName, location, squareSize):
     g_filtered = PBFilter().filter(g, fps)
     b_filtered = PBFilter().filter(b, fps)
 
-    # Estudiar bien como se justifica ésto. Se calculaba así en la teoria.
     f = np.linspace(-n / 2, n / 2 - 1, n) * fps / n
 
     return [r_filtered,g_filtered,b_filtered,f]

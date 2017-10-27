@@ -17,32 +17,37 @@ class Location(Enum):
      LOWER_LEFT = 8
      LOWER_RIGHT = 9
 
-def getFilteredRGBVectors(videoName, location, squareSize):
+def getFilteredRGBVectors(videoName, location, squareSize,timeLimit):
     cap = cv2.VideoCapture('../res/videos/'+videoName)
 
     length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     fps = cap.get(cv2.CAP_PROP_FPS)
-    n = int(pow(2, floor(log2(length))))
 
-    [r,g,b] = calculateRGBMean(cap,location,length,squareSize)
+    frameLimit = (int)(timeLimit*fps)
+    if frameLimit > length:
+        frameLimit = length
+
+    n = int(pow(2, floor(log2(frameLimit))))
+
+    [r,g,b] = calculateRGBMean(cap,location,frameLimit,squareSize)
 
     r = r[0, 0:n] - np.mean(r[0, 0:n])
     g = g[0, 0:n] - np.mean(g[0, 0:n])
     b = b[0, 0:n] - np.mean(b[0, 0:n])
 
-    r_filtered = PBFilter().filter(r, fps)
-    g_filtered = PBFilter().filter(g, fps)
-    b_filtered = PBFilter().filter(b, fps)
+    #r_filtered = PBFilter().filter(r, fps)
+    #g_filtered = PBFilter().filter(g, fps)
+    #b_filtered = PBFilter().filter(b, fps)
 
     # Estudiar bien como se justifica ésto. Se calculaba así en la teoria.
     f = np.linspace(-n / 2, n / 2 - 1, n) * fps / n
 
-    return [r_filtered,g_filtered,b_filtered,f]
-
+    #return [r_filtered,g_filtered,b_filtered,f]
+    return [r, g, b, f]
 
     #Given a vector of frames it returns a vector for r, g and b bands with the mean calculated
     #in a square of squareSize located in location
-def calculateRGBMean(cap,location,length,squareSize):
+def calculateRGBMean(cap,location,frameLimit,squareSize):
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
@@ -50,14 +55,14 @@ def calculateRGBMean(cap,location,length,squareSize):
     if squareSize>max(width,height):
         squareSize = 30
 
-    r = np.zeros((1, length))
-    g = np.zeros((1, length))
-    b = np.zeros((1, length))
+    r = np.zeros((1, frameLimit))
+    g = np.zeros((1, frameLimit))
+    b = np.zeros((1, frameLimit))
     k = 0
 
     [leftBound,rightBound,upperBound,lowerBound]=calculateSquareBounds(location,width,height,squareSize)
 
-    while (cap.isOpened()):
+    while (cap.isOpened() and k<frameLimit):
         ret, frame = cap.read()
 
         if ret == True:

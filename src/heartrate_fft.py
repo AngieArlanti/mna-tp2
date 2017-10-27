@@ -13,7 +13,7 @@ from src.fft import fft
 
 #Process video, get frames and RGB channels analize an area of squareSize and then substract the mean
 #Params: videoName under path /Videos, a Location Area to analize and a squareSize
-[r,g,b,f] = vpu.getFilteredRGBVectors('2017-09-14 21.53.59.mp4', vpu.Location.CENTER, 30)
+[r,g,b,f] = vpu.getFilteredRGBVectors('fierens.mp4', vpu.Location.CENTER, 30,61)
 
 sta = time.perf_counter()
 R = np.abs(np.fft.fftshift(np.fft.fft(r))) ** 2
@@ -43,9 +43,9 @@ print("Tiempo de corrida np.fft: {}".format(end - sta))
 print("Tiempo de corrida dft: {}".format(end2 - sta2))
 print("Tiempo de corrida fft_iter_opt: {}".format(end3 - sta3))
 
-print(np.fft.fft(r) ** 2)
-print(fft.fft_opt(r, len(r), 1, 0) ** 2)
-print(fft.fft_iter_opt(r) ** 2)
+#print(np.fft.fft(r) ** 2)
+#print(fft.fft_opt(r, len(r), 1, 0) ** 2)
+#print(fft.fft_iter_opt(r) ** 2)
 
 
 plt.plot(60 * f, R, "r")
@@ -82,6 +82,8 @@ plt.xlim(0, 200)
 
 plt.xlabel("frecuencia 2 [1/minuto]")
 
+print("[Verde] Frecuencia cardíaca: ", abs(f[np.argmax(G)]) * 60, " pulsaciones por minuto")
+print("[Rojo] Frecuencia cardíaca: ", abs(f[np.argmax(R)]) * 60, " pulsaciones por minuto")
+print("[Azul] Frecuencia cardíaca: ", abs(f[np.argmax(B)]) * 60, " pulsaciones por minuto")
 plt.show()
 
-print("Frecuencia cardíaca: ", abs(f[np.argmax(G)]) * 60, " pulsaciones por minuto")

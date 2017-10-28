@@ -7,8 +7,8 @@ import re
 
 from src.passband_filter import PBFilter
 
-class Constants(Enum):
-    RES_DIRECTORY = '../res/videos/'
+
+RES_DIRECTORY = '../res/videos/'
 
 class Location(Enum):
      CENTER = 1

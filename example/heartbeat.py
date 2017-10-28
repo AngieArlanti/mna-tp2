@@ -7,6 +7,7 @@ Created on Sat Sep 16 19:23:10 2017
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
+from src.fft import fft
 
 cap = cv2.VideoCapture('../res/videos/fierens.mp4')
 
@@ -46,9 +47,13 @@ f = np.linspace(-n / 2, n / 2 - 1, n) * fps / n
 r = r[0, 0:n] - np.mean(r[0, 0:n])
 g = g[0, 0:n] - np.mean(g[0, 0:n])
 b = b[0, 0:n] - np.mean(b[0, 0:n])
-R = np.abs(np.fft.fftshift(np.fft.fft(r))) ** 2
-G = np.abs(np.fft.fftshift(np.fft.fft(g))) ** 2
-B = np.abs(np.fft.fftshift(np.fft.fft(b))) ** 2
+# R = np.abs(np.fft.fftshift(np.fft.fft(r))) ** 2
+# G = np.abs(np.fft.fftshift(np.fft.fft(g))) ** 2
+# B = np.abs(np.fft.fftshift(np.fft.fft(b))) ** 2
+R = np.abs(np.fft.fftshift(fft.fft_iter_opt(r))) ** 2
+G = np.abs(np.fft.fftshift(fft.fft_iter_opt(g))) ** 2
+B = np.abs(np.fft.fftshift(fft.fft_iter_opt(b))) ** 2
+
 # plt.plot(60 * f, R)
 # plt.xlim(0, 200)
 # plt.savefig("plots/fR.png")

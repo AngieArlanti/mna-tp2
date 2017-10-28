@@ -16,8 +16,9 @@ from src.utils import video_processing_utils as vpu
 #Process video, get frames and RGB channels analize an area of squareSize and then substract the mean
 #Params: videoName under path /Videos, a Location Area to analize and a squareSize
 
-[r,g,b,f] = vpu.getFilteredRGBVectors('fierens.mp4', vpu.Location.CENTER, 30,61)
-
+videoName = '../res/videos/fierens.mp4'
+#videoName = '59-led-arlanti.mp4'
+[r,g,b,f] = vpu.getFilteredRGBVectors(videoName, vpu.Location.CENTER, 30,61)
 
 sta = time.perf_counter()
 R = np.abs(np.fft.fftshift(np.fft.fft(r))) ** 2
@@ -86,8 +87,8 @@ plt.xlim(0, 200)
 
 plt.xlabel("frecuencia 2 [1/minuto]")
 
-print("[Verde] Frecuencia cardíaca: ", abs(f[np.argmax(G)]) * 60, " pulsaciones por minuto")
-print("[Rojo] Frecuencia cardíaca: ", abs(f[np.argmax(R)]) * 60, " pulsaciones por minuto")
-print("[Azul] Frecuencia cardíaca: ", abs(f[np.argmax(B)]) * 60, " pulsaciones por minuto")
-plt.show()
+print("Frecuencia cardíaca: ", abs(f[np.argmax(R)]) * 60, " pulsaciones por minuto")
+print("Frecuencia cardíaca: ", abs(f[np.argmax(G)]) * 60, " pulsaciones por minuto")
+print("Frecuencia cardíaca: ", abs(f[np.argmax(B)]) * 60, " pulsaciones por minuto")
 
+plt.show()

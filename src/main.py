@@ -1,0 +1,3 @@
+from src.video_processing_utils import getResourcesFromDirectory
+
+print(getResourcesFromDirectory())

@@ -69,3 +69,5 @@ if __name__ == "__main__":
     plt.savefig("../out/butter_example_alonso.png")
 
     plt.show()
+
+    print("Frecuencia cardíaca con B: ", abs(f[np.argmax(B_butter)]) * 60, " pulsaciones por minuto")

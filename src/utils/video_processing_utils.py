@@ -9,7 +9,6 @@ from src.passband_filter import PBFilter
 
 RES_DIRECTORY = '../../res/videos/'
 
-
 class Location(Enum):
     CENTER = 1
     LEFT = 2

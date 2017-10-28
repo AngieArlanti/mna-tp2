@@ -9,7 +9,7 @@ def get_coefficient_of_determination(x, y):
     # linear relationship. Positive correlations imply that as x increases, so
     # does y. Negative correlations imply that as x increases, y decreases.
     coefficient_of_dermination = r2(y, x)
-    print("Coeficiente de determinación R2 de Pearson: ", coefficient_of_dermination[0])
+    return coefficient_of_dermination[0]
 
 
 def bland_altman(x, y, title):

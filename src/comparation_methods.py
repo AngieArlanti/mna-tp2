@@ -12,13 +12,13 @@ def get_coefficient_of_determination(x, y):
     print("Coeficiente de determinación R2 de Pearson: ", coefficient_of_dermination[0])
 
 
-def bland_altman(x, y):
+def bland_altman(x, y, title):
     mean = np.mean([x, y], axis=0)
     diff = x - y  # Difference between x and y
     md = np.mean(diff)  # Mean of the difference
     sd = np.std(diff, axis=0)  # Standard deviation of the difference
 
-    plt.title("Bland-Altman plot")
+    plt.title(title)
     plt.scatter(mean, diff)
 
     plt.axhline(md, color='gray', linestyle='--')

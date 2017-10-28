@@ -4,11 +4,17 @@ from src.utils import plot_utils as pu
 from src.utils import fft_calc_utils as fcu
 
 video_path = '../../res/videos/'
-filenames = vpu.getValidFileNames()
+video_format = '.mp4'
 
-for filename in filenames:
-    [r, g, b, f] = vpu.getFilteredRGBVectors(video_path+filename, vpu.Location.CENTER, 30,60)
-    [R,G,B] = fcu.runFFTWithMethod(fcu.FFTMethod.NUMPY_FFT,r,g,b,f)
+videos = vpu.get_led_videos()
 
+led_freqs = []
 
-pu.plotRGB(R,G,B,f)
+for v in videos:
+
+    [r, g, b, f] = vpu.getFilteredRGBVectors(video_path + v[0] + '-' + v[1] + '-' + v[2] + video_format, vpu.Location.CENTER, 30, 61)
+    [R,G,B] = fcu.runFFTWithMethod(fcu.FFTMethod.FFT_ITER_OPT,r,g,b,f)
+
+    led_freqs.append([fcu.getHeartRateFromBandVector(R,f), fcu.getHeartRateFromBandVector(G,f), fcu.getHeartRateFromBandVector(B,f)])
+
+print(led_freqs)

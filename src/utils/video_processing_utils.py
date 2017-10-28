@@ -107,22 +107,27 @@ def calculateSquareBounds(Location, width, height, squareSize):
                Location.LOWER_LEFT: lowerLeft, Location.LOWER_RIGHT: lowerRight}
     return choices.get(Location)
 
-def getResourcesFromDirectory():
-
+def getValidFileNames():
+    validNames = []
     fileNames = os.listdir(RES_DIRECTORY)
-    return parseFileNames(fileNames)
-
-def parseFileNames(fileNames):
-    parsed = []
     for name in fileNames:
         if not validateFileNameFormat(name) is None:
-            noExtension = os.path.splitext(name)[0]
-            parsed.append(noExtension.split('-',2))
+            validNames.append(name)
+    return validNames
+
+def getResourcesFromDirectory():
+    fileNames = getValidFileNames()
+    parsed = []
+    for name in fileNames:
+        noExtension = os.path.splitext(name)[0]
+        parsed.append(noExtension.split('-',2))
     return parsed
 
 def validateFileNameFormat(name):
     pattern = re.compile("^[0-9]{2,3}\-(led|sinled)\-[a-zA-Z]+\.mp4$")
     return pattern.match(name)
+
+
 # [r,g,b,f]=processVideo('71.mp4',Location.CENTER,30);
 # print(r)
 def testCalculateSquareBounds():

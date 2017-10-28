@@ -1,32 +1,44 @@
 import numpy as np
-import matplotlib.pyplot as plt
 from src.utils import video_processing_utils as vpu
-from src.fft import fft
 
-#Process video, get frames and RGB channels analize an area of squareSize and then substract the mean
-#Params: videoName under path /Videos, a Location Area to analize and a squareSize
-#videoName = '2017-09-14 21.53.59.mp4'
-#videoName = 'arlanti.mp4'
-videoName = '71.mp4'
+from src.utils import fft_calc_utils as fcu
+from src.comparation_methods import get_coefficient_of_determination as r2
 
-[r,g,b,f] = vpu.getFilteredRGBVectors(videoName, vpu.Location.CENTER, 30)
+RES_DIRECTORY = '../../res/videos/'
 
-R = np.abs(np.fft.fftshift(fft.fft_iter_opt(r))) ** 2
-G = np.abs(np.fft.fftshift(fft.fft_iter_opt(g))) ** 2
-B = np.abs(np.fft.fftshift(fft.fft_iter_opt(b))) ** 2
+fileNames = vpu.getValidFileNames()
+resources = vpu.getResourcesFromDirectory()
 
-plt.xlabel("frecuencia [1/minuto]")
-plt.plot(60 * f, R, "r")
-plt.xlim(0, 200)
+obtainedR = []
+obtainedG = []
+obtainedB = []
+expected = []
+i=0;
+for name in fileNames:
+    [r, g, b, f] = vpu.getFilteredRGBVectors(RES_DIRECTORY+name, vpu.Location.CENTER, 30, 60)
+    [R, G, B] = fcu.runFFTWithMethod(fcu.FFTMethod.FFT_ITER_OPT, r, g, b, f)
+    rFrec = abs(f[np.argmax(R)]) * 60
+    gFrec = abs(f[np.argmax(G)]) * 60
+    bFrec = abs(f[np.argmax(B)]) * 60
+    obtainedR.append(rFrec)
+    obtainedG.append(gFrec)
+    obtainedB.append(bFrec)
+    expected.append(resources[i][0])
+    i=i+1
 
-plt.plot(60 * f, G, "g")
-plt.xlim(0, 200)
+expected = np.array(expected).astype(np.float)
+print("obtained R: ", obtainedR)
+print("obtained G: ", obtainedG)
+print("obtained B: ", obtainedB)
+print("expected: ", expected)
+print(resources)
 
-plt.plot(60 * f, B, "b")
-plt.xlim(0, 200)
+pearsonR = r2(expected,obtainedR)
+pearsonG = r2(expected,obtainedG)
+pearsonB = r2(expected,obtainedB)
 
-plt.show()
+print("Coeficiente de determinación R2 de Pearson para R: ",pearsonR)
+print("Coeficiente de determinación R2 de Pearson para G: ",pearsonG)
+print("Coeficiente de determinación R2 de Pearson para B: ",pearsonB)
 
-print("Frecuencia cardíaca con R: ", abs(f[np.argmax(R)]) * 60, " pulsaciones por minuto")
-print("Frecuencia cardíaca con G: ", abs(f[np.argmax(G)]) * 60, " pulsaciones por minuto")
-print("Frecuencia cardíaca con B: ", abs(f[np.argmax(B)]) * 60, " pulsaciones por minuto")
+

@@ -18,7 +18,7 @@ class Location(Enum):
     LOWER_RIGHT = 9
 
 def getFilteredRGBVectors(videoName, location, squareSize):
-    cap = cv2.VideoCapture('../../res/videos/' + videoName)
+    cap = cv2.VideoCapture(videoName)
 
     if not cap.isOpened():
         print("No se pudo abrir el video.")
@@ -58,8 +58,6 @@ def calculateRGBMean(cap, location, length, squareSize):
     k = 0
 
     [leftBound, rightBound, upperBound, lowerBound] = calculateSquareBounds(location, width, height, squareSize)
-
-    testCalculateSquareBounds()
 
     while (cap.isOpened()):
         ret, frame = cap.read()

@@ -9,7 +9,10 @@ from src.fft import fft
 # videoName = 'arlanti.mp4'
 videoName = 'alonso.mp4'
 # videoName = '71.mp4'
-[r, g, b, f] = vpu.getFilteredRGBVectors(videoName, vpu.Location.CENTER, 30)
+
+video_path = '../../res/videos/'
+
+[r, g, b, f] = vpu.getFilteredRGBVectors(video_path + videoName, vpu.Location.CENTER, 30)
 
 R = np.abs(np.fft.fftshift(fft.fft_iter_opt(r))) ** 2
 G = np.abs(np.fft.fftshift(fft.fft_iter_opt(g))) ** 2

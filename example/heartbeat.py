@@ -8,7 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 
-cap = cv2.VideoCapture('../res/videos/2017-09-14 21.53.59.mp4')
+cap = cv2.VideoCapture('../res/videos/fierens.mp4')
 
 # if not cap.isOpened():
 #    print("No lo pude abrir")

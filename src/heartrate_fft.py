@@ -5,11 +5,13 @@ Created on Sat Sep 16 19:23:10 2017
 @author: mminestrelli
 """
 
-import numpy as np
-import matplotlib.pyplot as plt
 import time
-from src import video_processing_utils as vpu
+
+import matplotlib.pyplot as plt
+import numpy as np
+
 from src.fft import fft
+from src.utils import video_processing_utils as vpu
 
 #Process video, get frames and RGB channels analize an area of squareSize and then substract the mean
 #Params: videoName under path /Videos, a Location Area to analize and a squareSize

@@ -102,7 +102,7 @@ def calculateSquareBounds(Location, width, height, squareSize):
     choices = {Location.CENTER: center, Location.LEFT: left, Location.RIGHT: right, Location.UPPER_CENTER: upperCenter,
                Location.UPPER_LEFT: upperLeft, Location.UPPER_RIGHT: upperRight, Location.LOWER_CENTER: lowerCenter,
                Location.LOWER_LEFT: lowerLeft, Location.LOWER_RIGHT: lowerRight}
-    return choices.get(Location, center)
+    return choices.get(Location)
 
 
 # [r,g,b,f]=processVideo('71.mp4',Location.CENTER,30);

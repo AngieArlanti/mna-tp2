@@ -1,9 +1,7 @@
 import numpy as np
-import matplotlib.pyplot as plt
 from src.fft import fft
 from src.utils import video_processing_utils as vpu
 from src import comparation_methods as cmp
-import cv2
 
 video_path = '../../res/videos/'
 video_format = '.mp4'

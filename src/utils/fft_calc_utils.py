@@ -9,7 +9,7 @@ class FFTMethod(Enum):
     FFT_ITER = 4
     FFT_ITER_OPT = 5
 
-def executeFFTWithMethod(FFTMethod,r,g,b,f):
+def runFFTWithMethod(FFTMethod,r,g,b,f):
 
     [R,G,B] = calculateFFT(FFTMethod,r,g,b)
 

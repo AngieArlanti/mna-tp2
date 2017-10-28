@@ -14,7 +14,7 @@ video_path = '../../res/videos/'
 
 [r, g, b, f] = vpu.getFilteredRGBVectors(video_path + videoName, vpu.Location.CENTER, 30,60)
 
-[R,G,B] = fcu.executeFFTWithMethod(fcu.FFTMethod.NUMPY_FFT,r,g,b,f)
+[R,G,B] = fcu.runFFTWithMethod(fcu.FFTMethod.NUMPY_FFT,r,g,b,f)
 
 pu.plotRGB(R,G,B,f)
 

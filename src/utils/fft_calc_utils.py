@@ -9,6 +9,9 @@ class FFTMethod(Enum):
     FFT_ITER = 4
     FFT_ITER_OPT = 5
 
+def getHeartRateFromBandVector(vector,f):
+    return abs(f[np.argmax(vector)]) * 60
+
 def runFFTWithMethod(FFTMethod,r,g,b,f):
 
     [R,G,B] = calculateFFT(FFTMethod,r,g,b)

@@ -7,7 +7,8 @@ import re
 
 from src.passband_filter import PBFilter
 
-RES_DIRECTORY = '../res/videos/'
+RES_DIRECTORY = '../../res/videos/'
+
 
 class Location(Enum):
     CENTER = 1
@@ -21,7 +22,7 @@ class Location(Enum):
     LOWER_RIGHT = 9
 
 
-def getFilteredRGBVectors(videoName, location, squareSize,timeLimit):
+def getFilteredRGBVectors(videoName, location, squareSize, timeLimit):
     cap = cv2.VideoCapture(videoName)
 
     if not cap.isOpened():
@@ -31,13 +32,13 @@ def getFilteredRGBVectors(videoName, location, squareSize,timeLimit):
     length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     fps = cap.get(cv2.CAP_PROP_FPS)
 
-    frameLimit = (int)(timeLimit*fps)
+    frameLimit = (int)(timeLimit * fps)
     if frameLimit > length:
         frameLimit = length
 
     n = int(pow(2, floor(log2(frameLimit))))
 
-    [r,g,b] = calculateRGBMean(cap,location,frameLimit,squareSize)
+    [r, g, b] = calculateRGBMean(cap, location, frameLimit, squareSize)
 
     r = r[0, 0:n] - np.mean(r[0, 0:n])
     g = g[0, 0:n] - np.mean(g[0, 0:n])
@@ -51,10 +52,11 @@ def getFilteredRGBVectors(videoName, location, squareSize,timeLimit):
 
     return [r_filtered, g_filtered, b_filtered, f]
 
-    #Given a vector of frames it returns a vector for r, g and b bands with the mean calculated
-    #in a square of squareSize located in location
-def calculateRGBMean(cap,location,frameLimit,squareSize):
+    # Given a vector of frames it returns a vector for r, g and b bands with the mean calculated
+    # in a square of squareSize located in location
 
+
+def calculateRGBMean(cap, location, frameLimit, squareSize):
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
@@ -69,7 +71,7 @@ def calculateRGBMean(cap,location,frameLimit,squareSize):
 
     [leftBound, rightBound, upperBound, lowerBound] = calculateSquareBounds(location, width, height, squareSize)
 
-    while (cap.isOpened() and k<frameLimit):
+    while (cap.isOpened() and k < frameLimit):
         ret, frame = cap.read()
 
         if ret == True:
@@ -107,6 +109,7 @@ def calculateSquareBounds(Location, width, height, squareSize):
                Location.LOWER_LEFT: lowerLeft, Location.LOWER_RIGHT: lowerRight}
     return choices.get(Location)
 
+
 def getValidFileNames():
     validNames = []
     fileNames = os.listdir(RES_DIRECTORY)
@@ -115,17 +118,41 @@ def getValidFileNames():
             validNames.append(name)
     return validNames
 
+
 def getResourcesFromDirectory():
     fileNames = getValidFileNames()
     parsed = []
     for name in fileNames:
         noExtension = os.path.splitext(name)[0]
-        parsed.append(noExtension.split('-',2))
+        parsed.append(noExtension.split('-', 2))
     return parsed
+
 
 def validateFileNameFormat(name):
     pattern = re.compile("^[0-9]{2,3}\-(led|sinled)\-[a-zA-Z]+\.mp4$")
     return pattern.match(name)
+
+
+def get_no_led_videos():
+    no_leds = []
+
+    for v in getResourcesFromDirectory():
+
+        if v[1] == 'sinled':
+            no_leds.append(v)
+
+    return no_leds
+
+
+def get_led_videos():
+    leds = []
+
+    for v in getResourcesFromDirectory():
+
+        if v[1] == 'led':
+            leds.append(v)
+
+    return leds
 
 
 # [r,g,b,f]=processVideo('71.mp4',Location.CENTER,30);

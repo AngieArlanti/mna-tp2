@@ -5,27 +5,45 @@ import numpy as np
 from src.fft import fft
 from src.utils import video_processing_utils as vpu
 
+
+
+def runBenchMark(band):
+    sta = time.perf_counter()
+    G = np.abs(np.fft.fftshift(np.fft.fft(g))) ** 2
+    end = time.perf_counter()
+
+    sta2 = time.perf_counter()
+    G2 = np.abs(np.fft.fftshift(fft.fft_opt(g, len(g), 1, 0))) ** 2
+    end2 = time.perf_counter()
+
+    sta3 = time.perf_counter()
+    G3 = np.abs(np.fft.fftshift(fft.fft_iter_opt(g))) ** 2
+    end3 = time.perf_counter()
+
+    sta4 = time.perf_counter()
+    G4 = np.abs(np.fft.fftshift(fft.dft(g))) ** 2
+    end4 = time.perf_counter()
+
+    return [sta, end, sta2, end2, sta3, end3, sta4, end4]
+
+def printBenchMark(band,bandId):
+    [startTimeDFT, endTimeDFT, startTimeFFTOpt, endTimeFFTOpt, startTimeIterOpt, endTimeIterOpt, startTimeNumpyFFT, endTimeNumpyFFT] = runBenchMark(band)
+
+    print("Corriendo Benchmark para "+bandId)
+    print("Tiempo de corrida DFT: {}".format(endTimeDFT-startTimeDFT))
+    print("Tiempo de corrida FFT Optimizada: {}".format(endTimeFFTOpt-startTimeFFTOpt))
+    print("Tiempo de corrida FFT Iterativa y Optimizada: {}".format(endTimeIterOpt-startTimeIterOpt))
+    print("Tiempo de corrida FFT Numpy Library: {}\n".format(endTimeNumpyFFT-startTimeNumpyFFT))
+
+
+
+videoName = 'fierens.mp4'
+video_path = '../../res/videos/'
 #Process video, get frames and RGB channels analize an area of squareSize and then substract the mean
 #Params: videoName under path /Videos, a Location Area to analize and a squareSize
-[r,g,b,f] = vpu.getFilteredRGBVectors('fierens.mp4', vpu.Location.CENTER, 30,60)
+[r,g,b,f] = vpu.getFilteredRGBVectors(video_path+videoName, vpu.Location.CENTER, 30,60)
 
-sta = time.perf_counter()
-G = np.abs(np.fft.fftshift(np.fft.fft(g))) ** 2
-end = time.perf_counter()
+printBenchMark(r,"Rojo")
+printBenchMark(g,"Verde")
+printBenchMark(b,"Azul")
 
-sta2 = time.perf_counter()
-G2 = np.abs(np.fft.fftshift(fft.fft_opt(g, len(g), 1, 0))) ** 2
-end2 = time.perf_counter()
-
-sta3 = time.perf_counter()
-G3 = np.abs(np.fft.fftshift(fft.fft_iter_opt(g))) ** 2
-end3 = time.perf_counter()
-
-sta4 = time.perf_counter()
-G4 = np.abs(np.fft.fftshift(fft.dft(g))) ** 2
-end4 = time.perf_counter()
-
-print("Tiempo de corrida DFT: {}".format(end4 - sta4))
-print("Tiempo de corrida FFT Optimizada: {}".format(end2 - sta2))
-print("Tiempo de corrida FFT Iterativa y Optimizada: {}".format(end3 - sta3))
-print("Tiempo de corrida FFT Numpy Library: {}".format(end - sta))

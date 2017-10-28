@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from src import video_processing_utils as vpu
+from src.utils import video_processing_utils as vpu
 from src.fft import fft
 
 #Process video, get frames and RGB channels analize an area of squareSize and then substract the mean

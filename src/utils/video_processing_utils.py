@@ -153,6 +153,15 @@ def get_led_videos():
 
     return leds
 
+def get_fitbit_frequencies():
+    fitbit = []
+
+    for v in get_led_videos():
+        fitbit.append(int(v[0]))
+
+    return fitbit
+
+
 
 # [r,g,b,f]=processVideo('71.mp4',Location.CENTER,30);
 # print(r)

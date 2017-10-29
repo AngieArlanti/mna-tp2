@@ -1,4 +1,6 @@
-from src.utils.video_processing_utils import getResourcesFromDirectory, getValidFileNames
+from src.utils.video_processing_utils import getResourcesFromDirectory, getValidFileNames, get_led_videos, get_no_led_videos
 
-print(getValidFileNames())
 print(getResourcesFromDirectory())
+print(getValidFileNames())
+print(get_no_led_videos())
+print(get_led_videos())

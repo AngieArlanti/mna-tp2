@@ -117,14 +117,24 @@ def getValidFileNames():
             validNames.append(name)
     return validNames
 
-
 def getResourcesFromDirectory():
     fileNames = getValidFileNames()
+    aux = []
     parsed = []
     for name in fileNames:
         noExtension = os.path.splitext(name)[0]
-        parsed.append(noExtension.split('-', 2))
+        aux = noExtension.split('-', 2)
+        aux.append(name)
+        parsed.append(aux)
     return parsed
+
+# def getResourcesFromDirectory():
+#     fileNames = getValidFileNames()
+#     parsed = []
+#     for name in fileNames:
+#         noExtension = os.path.splitext(name)[0]
+#         parsed.append(noExtension.split('-', 2))
+#     return parsed
 
 
 def validateFileNameFormat(name):

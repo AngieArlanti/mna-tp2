@@ -40,5 +40,3 @@ pearsonB = r2(expected,obtainedB)
 print("Coeficiente de determinación R2 de Pearson para R: ",pearsonR)
 print("Coeficiente de determinación R2 de Pearson para G: ",pearsonG)
 print("Coeficiente de determinación R2 de Pearson para B: ",pearsonB)
-
-

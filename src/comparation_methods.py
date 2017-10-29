@@ -1,6 +1,7 @@
 from scipy.stats import pearsonr as r2
 import matplotlib.pyplot as plt
 import numpy as np
+import hashlib
 
 
 def get_coefficient_of_determination(x, y):
@@ -27,5 +28,8 @@ def bland_altman(x, y, title):
 
     plt.xlabel("promedio de mediciones [1/minuto]")
     plt.ylabel("diferencia entre mediciones [1/minuto]")
+
+    hash_object = hashlib.md5(diff)
+    plt.savefig("../../out/B&A_" + hash_object.hexdigest() + ".png")
 
     plt.show()

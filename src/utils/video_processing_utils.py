@@ -128,7 +128,7 @@ def getResourcesFromDirectory():
 
 
 def validateFileNameFormat(name):
-    pattern = re.compile("^[0-9]{2,3}\-(led|sinled)\-[a-zA-Z]+\.mp4$")
+    pattern = re.compile("^[0-9]{2,3}\-(led|sinled)\-[a-zA-Z0-9]+\.mp4$")
     return pattern.match(name)
 
 

@@ -5,10 +5,12 @@ from src import comparation_methods as cmp
 
 video_path = '../../res/videos/'
 video_format = '.mp4'
-subject_quantity = 4
 
 no_led_videos = vpu.get_no_led_videos()
 led_videos = vpu.get_led_videos()
+
+subject_quantity = len(led_videos)
+
 fitbit_measures = [59, 80, 83, 75]
 
 subject_videos = []

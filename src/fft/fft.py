@@ -30,9 +30,9 @@ def fft_opt(x, N, s, index):
         ans[0:8] = dft(x[index::s])
     else:
         E = fft_opt(x, N//2, 2*s, index)
-        O = fft_opt(x, N//2, 2*s, index + s)
-        ans[:N//2] = E + O * np.exp(- 1j * 2 * math.pi * np.arange(N//2) / N)
-        ans[N//2:] = E - O * np.exp(- 1j * 2 * math.pi * np.arange(N//2) / N)
+        O = fft_opt(x, N//2, 2*s, index + s) * np.exp(- 1j * 2 * math.pi * np.arange(N//2) / N)
+        ans[:N//2] = E + O
+        ans[N//2:] = E - O
     return ans
 
 def reverse_bit(x, bits):

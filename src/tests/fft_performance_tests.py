@@ -27,7 +27,7 @@ def runBenchMark(band):
     return [sta, end, sta2, end2, sta3, end3, sta4, end4]
 
 def printBenchMark(band,bandId):
-    [startTimeDFT, endTimeDFT, startTimeFFTOpt, endTimeFFTOpt, startTimeIterOpt, endTimeIterOpt, startTimeNumpyFFT, endTimeNumpyFFT] = runBenchMark(band)
+    [startTimeNumpyFFT, endTimeNumpyFFT , startTimeFFTOpt, endTimeFFTOpt, startTimeIterOpt, endTimeIterOpt, startTimeDFT, endTimeDFT] = runBenchMark(band)
 
     print("Corriendo Benchmark para "+bandId)
     print("Tiempo de corrida DFT: {}".format(endTimeDFT-startTimeDFT))

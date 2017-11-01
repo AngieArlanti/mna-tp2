@@ -2,7 +2,6 @@ from scipy.stats import pearsonr as r2
 import matplotlib.pyplot as plt
 import numpy as np
 import hashlib
-from sklearn import linear_model
 
 def get_coefficient_of_determination(x, y):
     # Pearson coefficient varies between -1 and +1
@@ -12,7 +11,6 @@ def get_coefficient_of_determination(x, y):
     x = x - np.mean(x)
     y = y - np.mean(y)
     coefficient_of_dermination = r2(x, y)
-    # TODO PLOT REGRESION LINEAL
     return coefficient_of_dermination[0]
 
 

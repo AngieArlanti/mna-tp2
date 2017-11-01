@@ -6,8 +6,11 @@ import os
 import re
 
 from src.passband_filter import PBFilter
+from src.utils.directory_utils import validateDirectories
 
 RES_DIRECTORY = '../../res/videos/'
+
+validateDirectories()
 
 class Location(Enum):
     CENTER = 1

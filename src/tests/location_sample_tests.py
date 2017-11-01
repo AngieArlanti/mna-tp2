@@ -3,7 +3,9 @@ from src.utils import video_processing_utils as vpu
 
 from src.utils import fft_calc_utils as fcu
 from src.comparation_methods import get_coefficient_of_determination as r2
+from src.utils.directory_utils import validateDirectories
 
+validateDirectories()
 
 def show_results(result):
     for data in result:

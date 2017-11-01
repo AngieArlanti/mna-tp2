@@ -4,8 +4,9 @@ import numpy as np
 
 from src.fft import fft
 from src.utils import video_processing_utils as vpu
+from src.utils.directory_utils import validateDirectories
 
-
+validateDirectories()
 
 def runBenchMark(band):
     sta = time.perf_counter()

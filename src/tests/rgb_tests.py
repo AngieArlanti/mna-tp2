@@ -3,7 +3,9 @@ from src.utils import video_processing_utils as vpu
 
 from src.comparation_methods import get_coefficient_of_determination as r2
 import src.utils.tests_utils as tests_utils
+from src.utils.directory_utils import validateDirectories
 
+validateDirectories()
 
 def test():
 

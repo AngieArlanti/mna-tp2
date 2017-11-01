@@ -2,7 +2,9 @@ import numpy as np
 from src.utils import video_processing_utils as vpu
 import src.utils.tests_utils as tests_utils
 from src.comparation_methods import get_coefficient_of_determination as r2
+from src.utils.directory_utils import validateDirectories
 
+validateDirectories()
 
 def test():
 

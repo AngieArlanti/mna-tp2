@@ -2,9 +2,12 @@ import numpy as np
 from src.fft import fft
 from src.utils import video_processing_utils as vpu
 from src import comparation_methods as cmp
+from src.utils.directory_utils import validateDirectories
 
 video_path = '../../res/videos/'
 video_format = '.mp4'
+
+validateDirectories()
 
 no_led_videos = vpu.get_no_led_videos()
 led_videos = vpu.get_led_videos()

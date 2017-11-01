@@ -4,7 +4,7 @@ from src.utils import fft_calc_utils as fcu
 
 RES_DIRECTORY = '../../res/videos/'
 
-def get_obtained_vs_expected(resources):
+def get_obtained_vs_expected(resources, location, size, time):
 
     obtained_vs_expected_R = []
     obtained_vs_expected_G = []

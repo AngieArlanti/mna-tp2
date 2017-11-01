@@ -23,7 +23,7 @@ def show_rgb_pearson_coefficients(title, resources):
     print("Procesando...")
     print("")
 
-    resultR, resultG, resultB = tests_utils.get_obtained_vs_expected(resources)
+    resultR, resultG, resultB = tests_utils.get_obtained_vs_expected(resources, vpu.Location.CENTER, 30, 60)
     print("")
     print("")
     print("::::::::::::::::::::::::::::::::::::::::::::::::")

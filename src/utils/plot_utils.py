@@ -16,7 +16,8 @@ def plotRGB(R, G, B, f):
     plt.plot(60 * f, B, "b")
     plt.xlim(0, 200)
 
-    plt.show()
+    plt.savefig("../../out/rgb_frequencies.png")
+    plt.close()
 
 def plot_linear_regression(title,file, xlabel, ylabel, x, y):
     fit = np.polyfit(x, y, 1)

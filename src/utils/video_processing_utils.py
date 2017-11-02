@@ -122,18 +122,20 @@ def getValidFileNames():
             validNames.append(name)
     return validNames
 
-
 def getResourcesFromDirectory():
     fileNames = getValidFileNames()
+    aux = []
     parsed = []
     for name in fileNames:
         noExtension = os.path.splitext(name)[0]
-        parsed.append(noExtension.split('-', 2))
+        aux = noExtension.split('-', 2)
+        aux.append(name)
+        parsed.append(aux)
     return parsed
 
 
 def validateFileNameFormat(name):
-    pattern = re.compile("^[0-9]{2,3}\-(led|sinled)\-[a-zA-Z]+\.mp4$")
+    pattern = re.compile("^[0-9]{2,3}\-(led|sinled)\-[a-zA-Z0-9]+\.mp4$")
     return pattern.match(name)
 
 
@@ -158,12 +160,22 @@ def get_led_videos():
 
     return leds
 
+
 def getFitbitHeartRates(LedPreference):
     fitbitHeartrates = []
     for resource in getResourcesFromDirectory():
         if((LedPreference == LedPreference.LED and resource[1]=='led')or(LedPreference == LedPreference.NO_LED and resource[1]=='sinled')or(LedPreference == LedPreference.BOTH)):
             fitbitHeartrates.append((int)(resource[0]))
     return fitbitHeartrates
+
+def get_fitbit_frequencies():
+    fitbit = []
+
+    for v in get_led_videos():
+        fitbit.append(int(v[0]))
+
+    return fitbit
+
 
 
 # [r,g,b,f]=processVideo('71.mp4',Location.CENTER,30);

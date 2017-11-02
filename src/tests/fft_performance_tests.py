@@ -4,8 +4,9 @@ import numpy as np
 
 from src.fft import fft
 from src.utils import video_processing_utils as vpu
+from src.utils.directory_utils import validateDirectories
 
-
+validateDirectories()
 
 def runBenchMark(band):
     sta = time.perf_counter()
@@ -27,7 +28,7 @@ def runBenchMark(band):
     return [sta, end, sta2, end2, sta3, end3, sta4, end4]
 
 def printBenchMark(band,bandId):
-    [startTimeDFT, endTimeDFT, startTimeFFTOpt, endTimeFFTOpt, startTimeIterOpt, endTimeIterOpt, startTimeNumpyFFT, endTimeNumpyFFT] = runBenchMark(band)
+    [startTimeNumpyFFT, endTimeNumpyFFT , startTimeFFTOpt, endTimeFFTOpt, startTimeIterOpt, endTimeIterOpt, startTimeDFT, endTimeDFT] = runBenchMark(band)
 
     print("Corriendo Benchmark para "+bandId)
     print("Tiempo de corrida DFT: {}".format(endTimeDFT-startTimeDFT))

@@ -2,12 +2,15 @@
 from src.utils import video_processing_utils as vpu
 from src.utils import plot_utils as pu
 from src.utils import fft_calc_utils as fcu
-import numpy as np
+from src.utils.directory_utils import validateDirectories
 from src.comparation_methods import get_coefficient_of_determination as r2
-
 
 video_path = '../../res/videos/'
 video_format = '.mp4'
+
+validateDirectories()
+
+
 videos = vpu.get_led_videos()
 led_freqs = []
 

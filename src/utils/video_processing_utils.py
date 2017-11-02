@@ -23,6 +23,11 @@ class Location(Enum):
     LOWER_LEFT = 8
     LOWER_RIGHT = 9
 
+class LedPreference(Enum):
+    LED = 1
+    NO_LED = 2
+    BOTH = 3
+
 
 def getFilteredRGBVectors(videoName, location, squareSize, timeLimit):
     cap = cv2.VideoCapture(videoName)
@@ -131,14 +136,6 @@ def getResourcesFromDirectory():
         parsed.append(aux)
     return parsed
 
-# def getResourcesFromDirectory():
-#     fileNames = getValidFileNames()
-#     parsed = []
-#     for name in fileNames:
-#         noExtension = os.path.splitext(name)[0]
-#         parsed.append(noExtension.split('-', 2))
-#     return parsed
-
 
 def validateFileNameFormat(name):
     pattern = re.compile("^[0-9]{2,3}\-(led|sinled)\-[a-zA-Z0-9]+\.mp4$")
@@ -165,6 +162,14 @@ def get_led_videos():
             leds.append(v)
 
     return leds
+
+
+def getFitbitHeartRates(LedPreference):
+    fitbitHeartrates = []
+    for resource in getResourcesFromDirectory():
+        if((LedPreference == LedPreference.LED and resource[1]=='led')or(LedPreference == LedPreference.NO_LED and resource[1]=='sinled')or(LedPreference == LedPreference.BOTH)):
+            fitbitHeartrates.append((int)(resource[0]))
+    return fitbitHeartrates
 
 def get_fitbit_frequencies():
     fitbit = []
